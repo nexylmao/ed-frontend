@@ -23,6 +23,9 @@
                         </div>
                         <button class="btn btn-primary" type="submit">Log in</button>
                     </form>
+                    <div class="mt-2">
+                        <a title="Realtime application protection" href="https://www.sqreen.io/?utm_source=badge"><img style="width:109px;height:36px" src="https://s3-eu-west-1.amazonaws.com/sqreen-assets/badges/20171107/sqreen-dark-badge.svg" alt="Sqreen | Runtime Application Protection" /></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,7 +48,7 @@ div {
     clear: both;
     color: white;
     background-image: url('../assets/flowers.jpg');
-    background-size: 100vh;
+    background-size: 101vh;
     margin: auto;
 }
 </style>
@@ -70,7 +73,11 @@ export default {
             loading: false
         }
     },
+    created () {
+        this.loading = true;
+    },
     mounted () {
+        this.loading = false;
         if(window.sessionStorage.getItem('token') || window.localStorage.getItem('token')) {
             this.$modal.show('dialog', {
                 title: 'You\'re already logged in!',

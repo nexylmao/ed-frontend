@@ -1,8 +1,8 @@
 <template>
     <div class="page">
         <Loading :active.sync="isLoading"/>
-        <TokenCheck/>
         <v-dialog/>
+        <TokenCheck/>
     </div>
 </template>
 
@@ -18,11 +18,13 @@ export default {
     },
     data () {
         return {
-            isLoading
+            isLoading: false
         }
     },
-    mounted () {
+    created () {
         this.isLoading = true;
+    },
+    mounted () {
         if(window.localStorage.getItem('token')) {
             window.localStorage.clear();
         }

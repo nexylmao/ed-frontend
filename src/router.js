@@ -4,7 +4,7 @@ import Login from './views/Login.vue'
 import Logout from './views/Logout.vue'
 import Dashboard from './views/Dashboard.vue'
 import DataDashboard from './views/RegularData.vue'
-import Token from './views/Token.vue'
+import UserMe from './views/UserMe.vue'
 
 Vue.use(Router)
 
@@ -14,6 +14,11 @@ export default new Router({
       path: '/',
       name: 'loginPage',
       component: Login
+    },
+    {
+      path: '/logout',
+      names: 'logout',
+      component: Logout
     },
     {
       path: '/dashboard',
@@ -26,9 +31,9 @@ export default new Router({
       component: DataDashboard
     },
     {
-      path: '/logout',
-      names: 'logout',
-      component: Logout
+      path: '/user',
+      name: 'user-me',
+      component: UserMe
     }
   ]
 })

@@ -1,13 +1,13 @@
 <template>
     <div class="wrapper">
         <TokenCheck/>
-        <nav id="sidebar" v-bind:class="{ active: isActive }">
+        <nav id="sidebar" class="overlay" v-bind:class="{ active: isActive }">
             <div class="left float-left py-2 dropdown">
                 <h4 class="m-auto border-1">Menu</h4>
                 <h4 v-for="button in buttons" v-bind:key="button.text" class="m-auto border-1">{{button.text}}</h4>
             </div>
             <div class="right float-left py-2 dropdown">
-                <button v-on:click="isActive = !isActive" type="button" class="btn navbar-btn p-0">
+                <button v-on:click="onClick" type="button" class="btn btn-dark navbar-btn p-0">
                     <icon class="my-1" name="menu"></icon>
                 </button>
                 <a v-for="button in buttons" v-bind:key="button.text" :href="button.link" class="btn navbar-btn p-0">
@@ -15,6 +15,8 @@
                 </a>
             </div>
             <div class="bottom footer-copyright text-left m-0 px-2 py-3">
+                <a title="Realtime application protection" href="https://www.sqreen.io/?utm_source=badge"><img style="width:109px;height:36px" src="https://s3-eu-west-1.amazonaws.com/sqreen-assets/badges/20171107/sqreen-dark-badge.svg" alt="Sqreen | Runtime Application Protection" /></a>
+                <br/>
                 <small>Elektronski dnevnik</small><br/>
                 © 2018 V.N.
                 <a href="https://github.com/nexylmao/"> github.com</a>
@@ -50,7 +52,7 @@ export default {
                 {
                     text: 'Profile',
                     iconname: 'user',
-                    link: '/#/me'
+                    link: '/#/user'
                 },
                 {
                     text: 'Logout',
@@ -70,8 +72,7 @@ export default {
 
 <style>
 .wrapper {
-    display: flex;
-    align-items: stretch;
+    display: block;
 }
 </style>
 
@@ -109,21 +110,21 @@ a {
     color: white;
     width: 200px;
     max-width: 200px;
-    height: 90%;
+    height: 85%;
 }
 
 .right {
     color: white;
     width: 50px;
     max-width: 50px;
-    height: 90%;
+    height: 85%;
 }
 
 .bottom {
     color: white;
     width: 250px;
     max-width: 250px;
-    height: 10%;
+    height: 15%;
 }
 
 body {
@@ -156,21 +157,34 @@ p {
 }
 
 #sidebar {
+    position: fixed;
     min-width: 250px;
     max-width: 250px;
     height: 100vh;
     background: #111111;
     color: #ffffff;
     transition: all 0.3s;
+    z-index: 9999;
 }
 
 #sidebar.active {
     margin-left: -200px;
 }
 
+.overlay {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9998;
+}
+
 #content {
     padding: 20px;
-    max-height: 90vh;
+    max-height: 100vh;
+    max-width: 50%;
     transition: all 0.3s;
 }
 

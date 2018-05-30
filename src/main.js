@@ -4,6 +4,8 @@ import VModal from 'vue-js-modal'
 import VBootstrap from 'bootstrap-vue'
 import vicon from 'vue-icon'
 import router from './router'
+window.$ = require('jquery');
+window.jQuery = require('jquery');
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';

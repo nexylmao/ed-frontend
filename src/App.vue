@@ -1,12 +1,14 @@
 <template>
   <div id="app">
+    <modals-container/>
     <router-view/>
   </div>
 </template>
 
 <style>
 body {
-    background-image: url("assets/spacebackground.jpg");
+    background-image: url("assets/tree.jpg");
+    background-size: cover;
     background-blend-mode: darken;
     background-color: #111111;
 }
