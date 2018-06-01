@@ -1,6 +1,9 @@
 <template>
     <modal name="profile-show" height="75%" :adaptive="true" @before-open="beforeOpen" @opened="onOpened" @closed="onClose">
         <Loading :active.sync="loading"/>
+        <edit-me/>
+        <edit-user :profile="profile"/>
+        <v-dialog/>
         <facility-edit :profile="profile" :user="CurrentUser"/>
         <b-nav class="bg-dark">
             <b-btn class="btn-dark" @click="$modal.hide('profile-show')">
@@ -13,11 +16,13 @@
                 <icon name="home"></icon>
             </b-btn>
             <b-btn v-if="CurrentUser.username === profile.username"
-                    class="btn-dark" title="Edit your data">
+                    class="btn-dark" title="Edit your data"
+                    @click="$modal.show('edit-me')">
                 <icon name="edit-2"></icon>
             </b-btn>
             <b-btn v-if="CurrentUser.accountType === 'Administrator' || (CurrentUser.accountType === 'Moderator' && CurrentUser.facility === profile.facility && (profile.accountType !== 'Administrator' && profile.accountType !== 'Administrator'))"
-                    class="btn-dark" title="Edit users data">
+                    class="btn-dark" title="Edit users data"
+                    @click="$modal.show('edit-user')">
                 <icon name="edit"></icon>
             </b-btn>
             <b-btn v-if="CurrentUser.accountType === 'Administrator' || (CurrentUser.accountType === 'Moderator' && CurrentUser.facility === profile.facility && (profile.accountType !== 'Administrator' && profile.accountType !== 'Administrator'))"
@@ -57,6 +62,8 @@
 
 <script>
 import FacilityEdit from './userComponents/FacilityPUT';
+import EditMe from './userComponents/editMe';
+import EditUser from './userComponents/editUser';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.min.css';
 
@@ -64,7 +71,7 @@ export default {
     name: 'ProfileShow',
     props: ['profile','backOnClose'],
     components: {
-        FacilityEdit, Loading
+        EditMe, EditUser, FacilityEdit, Loading
     },
     data () {
         return {
@@ -91,6 +98,7 @@ export default {
                 })
                 .then(response => response.json())
                 .then(json => {
+                    this.loading = false;
                     if(json.good === true) {
                         this.profile = json.data;
                         document.getElementById('background').style.background = 'url("' + this.profile.backgroundPicture + '")';
@@ -101,6 +109,7 @@ export default {
                         document.getElementById('picture').style.backgroundPosition = 'center';
                     }
                     else {
+                        this.loading = false;
                         this.$modal.hide('profile-show');
                         this.$modal.show('dialog', {
                             title: 'Error!',
@@ -115,6 +124,7 @@ export default {
                     }
                 })
                 .catch(err => {
+                    this.loading = false;
                     this.$modal.hide('profile-show');
                     this.$modal.show('dialog', {
                         title: 'Error!',
