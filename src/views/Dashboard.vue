@@ -2,6 +2,8 @@
     <div class="wrapper">
         <NavBar/>
         <Loading :active.sync="isLoading"/>
+        <p-o-s-t-grade/>
+        <list-grades/>
         <v-dialog/>
         <div class="content container-fluid mx-auto align-middle text-center">
             <div class="bg-dark p-3 h-25 row mx-auto">
@@ -26,6 +28,12 @@
             </div>
             <div v-if="tab === 'Grades'" class="p-3">
                 <h2>GRADES MENU</h2>
+                <button @click="() => {showGrades();}" class="btn btn-success w-100 h-100 p-3">
+                    Show grades
+                </button>
+                <button v-if="me().accountType === 'Administrator' || me().accountType === 'Profesor'" @click="() => {showCreateGreade();}" class="btn btn-success w-100 h-100 p-3">
+                    Give a grade!
+                </button>
             </div>
             <div v-if="tab === 'Classes'" class="p-3">
                 <h2>CLASSES MENU</h2>
@@ -39,13 +47,15 @@
 
 <script>
 import NavBar from '@/components/Navbar';
+import ListGrades from '@/components/Grades';
+import POSTGrade from '@/components/CreateGrade';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.min.css';
 
 export default {
     name: 'Dashboard',
     components: {
-        Loading, NavBar
+        Loading, NavBar, ListGrades, POSTGrade
     },
     data () {
         return {
@@ -59,6 +69,21 @@ export default {
         }
     },
     methods : {
+        me () {
+            return JSON.parse(window.localStorage.getItem('me') || window.sessionStorage.getItem('me'))
+        },
+        showCreateGreade () {
+            this.$modal.show('create-grade', {
+                schoolyear: this.chosen,
+                class: this.chosen2
+            });
+        },
+        showGrades () {
+            this.$modal.show('list-grades', {
+                schoolyear: this.chosen,
+                class: this.chosen2
+            });
+        },
         setAllClass () {
             if(!window.localStorage.getItem('class') && !window.sessionStorage.getItem('class')) {
                 this.isLoading = true;
@@ -75,9 +100,11 @@ export default {
                     if(json.good === true) {
                         if(window.localStorage.getItem('token')) {
                             window.localStorage.setItem('class', JSON.stringify(json.data));
+                            this.classArray = json.data;
                         }
                         if(window.sessionStorage.getItem('token')) {
                             window.sessionStorage.setItem('class', JSON.stringify(json.data));
+                            this.classArray = json.data;
                         }
                     }
                     else {
@@ -124,9 +151,11 @@ export default {
                     if(json.good === true) {
                         if(window.localStorage.getItem('token')) {
                             window.localStorage.setItem('years', JSON.stringify(json.data));
+                            this.yearArray = json.data;
                         }
                         if(window.sessionStorage.getItem('token')) {
                             window.sessionStorage.setItem('years', JSON.stringify(json.data));
+                            this.yearArray = json.data;
                         }
                     }
                     else {

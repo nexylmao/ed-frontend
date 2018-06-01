@@ -25,10 +25,6 @@
                     @click="$modal.show('edit-user')">
                 <icon name="edit"></icon>
             </b-btn>
-            <b-btn v-if="CurrentUser.accountType === 'Administrator' || (CurrentUser.accountType === 'Moderator' && CurrentUser.facility === profile.facility && (profile.accountType !== 'Administrator' && profile.accountType !== 'Administrator'))"
-                    class="btn-dark" title="Delete user">
-                <icon name="trash-2"></icon>
-            </b-btn>
         </b-nav>
         <div id="background" class="w-100 h-100 py-3 text-center align-middle jumbotron">
             <div id="picture" class="mx-auto my-3"></div>
