@@ -7,7 +7,7 @@
 
 <style>
 body {
-    background-image: url("assets/tree.jpg");
+    background-image: url("assets/smoke.jpg");
     background-size: cover;
     background-blend-mode: darken;
     background-color: #111111;

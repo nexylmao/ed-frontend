@@ -10,9 +10,7 @@
             </b-nav>
             <div id="background" class="w-100 h-100 py-3 text-center align-middle jumbotron">
                 <div id="picture" class="mx-auto my-3"></div>
-                <div class="title">
-                    <h2>{{Facility.fullname}}</h2>
-                </div>
+                
             </div>
         </div>
     </modal>
@@ -59,6 +57,9 @@ export default {
                         document.getElementById('background').style.background = 'url("' + this.Facility.backgroundPicture + '")';
                         document.getElementById('background').style.backgroundSize = 'cover';
                         document.getElementById('background').style.backgroundPosition = 'center';
+                        document.getElementById('picture').style.background = 'url("' + this.Facility.picture + '")';
+                        document.getElementById('picture').style.backgroundSize = 'cover';
+                        document.getElementById('picture').style.backgroundPosition = 'center';
                     }
                     else {
                         this.$modal.hide('profile-show');
@@ -92,6 +93,9 @@ export default {
             document.getElementById('background').style.background = 'url("' + this.Facility.backgroundPicture + '")';
             document.getElementById('background').style.backgroundSize = 'cover';
             document.getElementById('background').style.backgroundPosition = 'center';
+            document.getElementById('picture').style.background = 'url("' + this.Facility.picture + '")';
+            document.getElementById('picture').style.backgroundSize = 'cover';
+            document.getElementById('picture').style.backgroundPosition = 'center';
             this.loading = false;
         }
     }
